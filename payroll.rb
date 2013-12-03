@@ -2,7 +2,7 @@ require 'csv'
 require 'pry'
 
 class Employee
-attr_accessor :last_name
+attr_accessor :last_name, :base_salary, :commission, :bonus, :quota
 
   def self.read_employees(filename)
     employees = []
@@ -19,10 +19,6 @@ attr_accessor :last_name
     end
     employees
   end
-
-
-
-
 
   def initialize(last_name, base_salary, job_title, commission=nil, quota=nil, bonus=nil)
     @last_name = last_name
@@ -44,7 +40,7 @@ attr_accessor :last_name
   end
 
   def net_pay
-    @base_salary-(0.3*@base_salary)
+    gross_salary-(0.3*@base_salary)
   end
 
   def gross_salary
@@ -143,7 +139,25 @@ employees = Employee.read_employees('employees.csv')
 sales =  Sale.read_sales('sales.csv')
 
 
-#employees.each {|employee| puts employee}
+employees.each do |employee| 
+  puts "***#{employee.last_name}***"
+  if employee.class == "CommissionSalesPerson"
+    employee.find_sales(sales)
+    puts "Gross Salary: #{employee.gross_salary}"
+    puts "Net Pay: #{employee.net_pay}"
+    puts "Commission: #{employee.gross_salary}"
+  elsif employee.class == "QuotaSalesPerson"
+    employee.find_sales(sales)
+    puts "Gross Salary: #{employee.gross_salary}"
+    puts "Bonus: #{employee.bonus}"
+    puts "Net Pay: #{employee.net_pay}"
+  else
+    puts "Gross Salary: #{employee.gross_salary}"
+    puts "Net Pay: #{employee.net_pay}"
+  end
+end
+
+
 
 puts employees[6].find_sales(sales)
 puts employees[2].sales
