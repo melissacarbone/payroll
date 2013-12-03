@@ -1,0 +1,9 @@
+last name,base salary,job title,commission,quota,bonus
+Smith,80000,developer,,,
+McMahon,85000,developer,,,
+Lob,50000,commission sales person,0.005,,
+Bobby,40000,commission sales person,0.015,,
+Krabappel,87000,designer,,,
+Groundskeeper,75000,quota based sales person,,60000,5000
+Wiggum,80000,quota based sales person,,80000,10000
+Burns,500000,owner,,,1000
