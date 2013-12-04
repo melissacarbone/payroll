@@ -110,11 +110,15 @@ class Owner < Employee
   end
 
   def gross_salary(sales)
-    if bonus?(sales)
+    if self.bonus?(sales)
       @base_salary + 1000
     else
       @base_salary
     end
+  end
+
+  def net_pay(sales)
+    gross_salary(sales)-(0.3*@base_salary)
   end
 end
 
@@ -138,27 +142,25 @@ end
 employees = Employee.read_employees('employees.csv')
 sales =  Sale.read_sales('sales.csv')
 
-
+#binding.pry
 employees.each do |employee| 
   puts "***#{employee.last_name}***"
-  if employee.class == "CommissionSalesPerson"
+  if employee.class == CommissionSalesPerson
     employee.find_sales(sales)
     puts "Gross Salary: #{employee.gross_salary}"
     puts "Net Pay: #{employee.net_pay}"
     puts "Commission: #{employee.gross_salary}"
-  elsif employee.class == "QuotaSalesPerson"
+  elsif employee.class == QuotaSalesPerson
     employee.find_sales(sales)
     puts "Gross Salary: #{employee.gross_salary}"
     puts "Bonus: #{employee.bonus}"
     puts "Net Pay: #{employee.net_pay}"
+  elsif employee.class == Owner
+    puts "Gross Salary: #{employee.gross_salary(sales)}"
+    puts "Bonus: #{employee.bonus}"
+    puts "Net Pay: #{employee.net_pay(sales)}"
   else
     puts "Gross Salary: #{employee.gross_salary}"
     puts "Net Pay: #{employee.net_pay}"
   end
 end
-
-
-
-puts employees[6].find_sales(sales)
-puts employees[2].sales
-puts employees[7].gross_salary(sales)
